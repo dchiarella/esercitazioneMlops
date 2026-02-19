@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+transformers
+torch
+prometheus-client
+pandas
+requests
