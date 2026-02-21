@@ -65,6 +65,12 @@ async def predict(messaggio: Message):
 def metrics():
     return Response(generate_latest(), media_type="text/plain")
 
+#Ho creato questa per poter provare su hf il tutto
+@app.get("/", response_class=HTMLResponse)
+async def home():
+    with open("index.html", "r", encoding="utf-8") as f:
+        return f.read()
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
