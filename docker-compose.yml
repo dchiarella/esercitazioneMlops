@@ -1,3 +1,5 @@
+## Il docker compose impacchetta  e avvia in dei container l'app che espone il modello, il client che la utilizza ma anche prometheus e grafana
+
 version: "3.9"
 
 services:
