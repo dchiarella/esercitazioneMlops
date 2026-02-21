@@ -5,6 +5,7 @@ colorTo: indigo
 sdk: docker
 app_file: app.py
 pinned: false
+app_port: 8000
 ---
 
 Progetto MLOps completo per l’analisi del sentiment basato su un modello pre-addestrato HuggingFace, con pipeline CI/CD, monitoraggio runtime e validazione automatica.
