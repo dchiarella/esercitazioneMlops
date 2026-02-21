@@ -61,12 +61,11 @@ Infine tramite secret è con l'aiuto di Gemini è stato fatto un deploy su Huggi
 Per avviare il progetto posizionarsi nella cartella principale e avviare il tutto con docker-compose up --build.
 
 Esiste una pipeline che 
-Installazione dipendenze
-Esecuzione unit test
-Validazione accuracy modello
-Build Docker
-
-Dploy automatico su HuggingFace Space
+"Installazione dipendenze"
+"Esecuzione unit test"
+"Validazione accuracy modello"
+"Build Docker"
+"Deploy automatico su HuggingFace Space"
 
 
 
