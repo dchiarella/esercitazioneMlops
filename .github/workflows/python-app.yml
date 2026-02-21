@@ -1,0 +1,60 @@
+name: MLOps CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.10
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest
+
+
+    - name: Run unit tests
+      run: |
+        pytest
+
+
+    - name: Validate model accuracy
+      run: |
+        python validate.py
+
+  
+    - name: Build Docker image
+      run: |
+        docker build -t sentiment-api .
+
+    
+    - name: Login to HuggingFace
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        pip install huggingface_hub
+        huggingface-cli login --token $HF_TOKEN
+
+   
+    - name: Push to HuggingFace Space
+      run: |
+        git config --global user.email "domenico.chiarella87@ifm.it"
+        git config --global user.name "github-actions"
+        git clone https://huggingface.co/spaces/domenico1987/test
+        rsync -av --exclude='.git' ./ test/
+        cd TUO_SPACE
+        git add .
+        git commit -m "Auto-deploy from CI"
+        git push
