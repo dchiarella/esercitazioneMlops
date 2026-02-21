@@ -8,6 +8,7 @@ import pickle
 from prometheus_client import Counter, Histogram, generate_latest
 from fastapi.responses import Response
 import time
+from fastapi.responses import HTMLResponse 
 app = FastAPI()
 
 # importo delle statistiche di prometheus
