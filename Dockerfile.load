@@ -1,3 +1,5 @@
+# questo dockerfile serve ad avviare il client che chiamerà il contro controller che espone il modello
+
 FROM python:3.10
 WORKDIR /app
 COPY requirements.load.txt .
