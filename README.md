@@ -3,7 +3,7 @@ title: Sentiment Analysis MLOps
 colorFrom: blue
 colorTo: indigo
 sdk: docker
-app_file: app.py
+app_file: esercitazione.py
 pinned: false
 app_port: 8000
 ---
