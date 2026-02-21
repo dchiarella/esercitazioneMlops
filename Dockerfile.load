@@ -1,6 +1,6 @@
 FROM python:3.10
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY requirements.load.txt .
+RUN pip install -r requirements.load.txt
 COPY esercitazione_post.py .
 CMD ["python", "esercitazione_post.py"]

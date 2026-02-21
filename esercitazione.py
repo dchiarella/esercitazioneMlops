@@ -1,4 +1,4 @@
-from seaborn import load_dataset
+from datasets import load_dataset
 from transformers import pipeline
 import pandas as pd
 import pickle
@@ -74,6 +74,7 @@ async def predict(messaggio: Message):
     SOMMA_CONFIDENCE.labels(classe=label).inc(score)
 
     TEMPO_RISPOSTA.observe(time.time() - start_time)
+    return prediction
 
 @app.get("/metrics")
 def metrics():

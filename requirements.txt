@@ -1,7 +1,9 @@
 fastapi
 uvicorn
-transformers
-torch
-prometheus-client
+transformers==4.39.3
+datasets
 pandas
+scikit-learn
+prometheus-client
 requests
+pytest
