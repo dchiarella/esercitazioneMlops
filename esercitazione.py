@@ -59,11 +59,21 @@ class Message(BaseModel):
     msg: str
 
 
-@app.post("/interference")
+@app.post("/predict")
 async def predict(messaggio: Message):
-    prediction =sentiment_task(messaggio.msg)
-    print(prediction)
-    return prediction
+  
+    start_time = time.time()
+    TOTALE_RICHIESTE.inc()
+
+    prediction = sentiment_task(messaggio.msg)
+
+    label = prediction[0]["label"].lower()
+    score = prediction[0]["score"]
+
+    TOTALE_PREDIZIONI.labels(classe=label).inc()
+    SOMMA_CONFIDENCE.labels(classe=label).inc(score)
+
+    TEMPO_RISPOSTA.observe(time.time() - start_time)
 
 @app.get("/metrics")
 def metrics():
