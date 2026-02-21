@@ -58,7 +58,7 @@ jobs:
         git config --global user.name "github-actions"
         
         # 1. Cloniamo usando il token nell'URL (autenticazione automatica)
-        git clone https://oauth2:$HF_TOKEN@huggingface.co/spaces/domenico1987/test hf_space
+        git clone https://oauth2:$HF_TOKEN@huggingface.co/spaces/domenico1987/mlops hf_space
         
         # 2. Copiamo i file (escludendo .git e la cartella stessa hf_space)
         rsync -av --exclude='.git' --exclude='hf_space' ./ hf_space/
