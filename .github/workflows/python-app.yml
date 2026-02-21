@@ -51,12 +51,22 @@ jobs:
 
    
     - name: Push to HuggingFace Space
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         git config --global user.email "domenico.chiarella87@ifm.it"
         git config --global user.name "github-actions"
-        git clone https://huggingface.co/spaces/domenico1987/test
-        rsync -av --exclude='.git' ./ test/
-        cd TUO_SPACE
+        
+        # 1. Cloniamo usando il token nell'URL (autenticazione automatica)
+        git clone https://oauth2:$HF_TOKEN@huggingface.co/spaces/domenico1987/test hf_space
+        
+        # 2. Copiamo i file (escludendo .git e la cartella stessa hf_space)
+        rsync -av --exclude='.git' --exclude='hf_space' ./ hf_space/
+        
+        # 3. Entriamo nella cartella giusta, aggiungiamo e pushiamo
+        cd hf_space
         git add .
-        git commit -m "Auto-deploy from CI"
+        # Verifichiamo se ci sono modifiche prima di fare il commit per evitare errori
+        git diff-index --quiet HEAD || git commit -m "Auto-deploy from GitHub Actions CI"
         git push
+        
