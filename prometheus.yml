@@ -1,3 +1,5 @@
+## FIle che dice a prometheus doce sono espsote le metriche
+
 global:
   scrape_interval: 5s
 

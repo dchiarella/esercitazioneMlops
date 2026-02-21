@@ -33,32 +33,15 @@ SOMMA_CONFIDENCE = Counter(
     ["classe"]
 )
 
+#Uilizzo un modello pre impostato
 model_path = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 sentiment_task = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path)
-# mi carico il dataset
-##
-##df = pd.read_csv("Twitter_Data.csv")
-##df = df.dropna()
-# prendo solo i primi 100 valori e stampo qualche esempio ma solo perchè interessa a me non a scopo progettuale
-##df_small = df[:100]
 
-
-# ciclo e vedo il risultato
-##for index, row in df_small.iterrows():
-##    testo = row["clean_text"]
-##    valore_reale = row["category"]
-
-##    risultato = sentiment_task(testo)[0]["label"]
-
-##    print(f"Frase: {testo}")
-
-##    print(f"Valore reale: {valore_reale}")
-##    print(f"risultato:{risultato}")
-
+# Creo una classe che verrà usata per chiamare il controller
 class Message(BaseModel):
     msg: str
 
-
+# La chiamata post oltre che utilizzare il modello verificare il sentimento aggiorna anche le statistiche
 @app.post("/predict")
 async def predict(messaggio: Message):
   
@@ -76,6 +59,8 @@ async def predict(messaggio: Message):
     TEMPO_RISPOSTA.observe(time.time() - start_time)
     return prediction
 
+
+#Questa serve per le metriche, prende i COunter e li espone in maniera che Prometheus li possa leggere
 @app.get("/metrics")
 def metrics():
     return Response(generate_latest(), media_type="text/plain")

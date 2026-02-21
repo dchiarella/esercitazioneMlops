@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 import time
 import random
-
+# URL che chiamiamo espsota tramite container
 URL = "http://api:8000/predict"
 
 # Usiamo TweetEval solo come dataset locale semplice
@@ -13,6 +13,7 @@ df = dataset["test"].to_pandas().sample(frac=1,  random_state=42)
 print("Avvio simulazione traffico...")
 print("Attendo che l'API sia pronta...")
 
+# Mi sono aiutato con Gemini, per utilizzare questo trucco per aspettare che il container che espone il servizio sia avviato prima di andare avanti, ci vorrebbe un timeout che lo blocca dopo un certo tempo
 while True:
     try:
         r = requests.get("http://api:8000/metrics")
@@ -23,6 +24,7 @@ while True:
         pass
 
     time.sleep(2)
+# ciclo sul daset e richiamo il controller 
 for index, row in df.iterrows():
     time.sleep(random.uniform(0.1, 0.3))
 

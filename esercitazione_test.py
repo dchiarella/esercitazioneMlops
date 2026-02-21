@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from esercitazione import app
 
+# Classe di test con cui diciamo che la risposta sia formata come immagino,score o label e che quest'ultima sia positiva neutrale o negativa
 client = TestClient(app)
 
 

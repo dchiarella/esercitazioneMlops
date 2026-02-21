@@ -1,4 +1,4 @@
-# questo dockerfile serve ad avviare il client che chiamerà il contro controller che espone il modello
+# questo dockerfile serve ad avviare il client che chiamerà il contro controller che espone il modello, usiamo un requrement dicerso
 
 FROM python:3.10
 WORKDIR /app
